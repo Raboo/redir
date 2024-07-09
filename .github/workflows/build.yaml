@@ -25,7 +25,7 @@ jobs:
     #     key: podman-storage-${{ matrix.platform }}
 
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      uses: docker/setup-qemu-action@v3
 
     - name: set lower case owner name
       run: |
