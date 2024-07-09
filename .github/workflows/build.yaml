@@ -77,8 +77,11 @@ jobs:
     #       ./Containerfile
     #     platforms: ${{ matrix.platform }}
 
-    - name: list podman images
-      run: podman images
+    - name: list images
+      run: |
+        podman images
+        docker images
+        skopeo list-tags containers-storage:
 
     - run: skopeo copy containers-storage:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
 
