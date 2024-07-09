@@ -86,7 +86,7 @@ jobs:
       run: |
         wget https://github.com/opencontainers/runc/releases/latest/download/runc.${{ env.PODMAN_ARCH }}
         mkdir -p "$HOME/.local/bin"
-        install -m 0755 runc.${{ env.PODMAN_ARCH }} "$HOME/.local/bin/"
+        install -m 0755 runc.${{ env.PODMAN_ARCH }} "$HOME/.local/bin/runc"
         echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     # - run: skopeo copy containers-storage:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
