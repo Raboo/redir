@@ -7,7 +7,7 @@ concurrency:
 jobs:
   build:
     name: Build image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         platform: [linux/amd64, linux/arm64]
@@ -82,24 +82,19 @@ jobs:
     #     podman images
     #     docker images
 
-    - name: upgrade runc
-      run: |
-        wget https://github.com/opencontainers/runc/releases/latest/download/runc.${{ env.PODMAN_ARCH }}
-        mkdir -p "$HOME/.local/bin"
-        install -m 0755 runc.${{ env.PODMAN_ARCH }} "$HOME/.local/bin/runc"
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
+    # - name: upgrade runc
+    #   run: |
+    #     wget https://github.com/opencontainers/runc/releases/latest/download/runc.${{ env.PODMAN_ARCH }}
+    #     mkdir -p "$HOME/.local/bin"
+    #     install -m 0755 runc.${{ env.PODMAN_ARCH }} "$HOME/.local/bin/runc"
+    #     echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-    - name: upgrade skopeo
-      run: |
-        wget https://github.com/lework/skopeo-binary/releases/latest/download/skopeo-linux-${{ env.PODMAN_ARCH }}
-        mkdir -p "$HOME/.local/bin"
-        install -m 0755 skopeo-linux-${{ env.PODMAN_ARCH }} "$HOME/.local/bin/skopeo"
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    - name: verify installs
-      run: |
-        which skopeo
-        which runc
+    # - name: upgrade skopeo
+    #   run: |
+    #     wget https://github.com/lework/skopeo-binary/releases/latest/download/skopeo-linux-${{ env.PODMAN_ARCH }}
+    #     mkdir -p "$HOME/.local/bin"
+    #     install -m 0755 skopeo-linux-${{ env.PODMAN_ARCH }} "$HOME/.local/bin/skopeo"
+    #     echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     # - run: skopeo copy containers-storage:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
     - run: skopeo copy docker-daemon:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
