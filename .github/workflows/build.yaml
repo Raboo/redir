@@ -18,11 +18,11 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: cache podman storage
-      uses: actions/cache@v4
-      with:
-        path: ~/.local/share/containers/storage
-        key: podman-storage-${{ matrix.platform }}
+    # - name: cache podman storage
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ~/.local/share/containers/storage
+    #     key: podman-storage-${{ matrix.platform }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
