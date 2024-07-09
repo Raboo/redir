@@ -63,6 +63,7 @@ jobs:
         platforms: ${{ matrix.platform }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+        load: true
 
     # - name: Build Image
     #   id: build-image
