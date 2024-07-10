@@ -65,16 +65,26 @@ jobs:
     #     cache-to: type=gha,mode=max
     #     load: true
 
+    # - name: Build Image
+    #   id: build-image
+    #   uses: redhat-actions/buildah-build@v2
+    #   with:
+    #     image: redir
+    #     tags: ${{ steps.meta.outputs.tags }}
+    #     labels: ${{ steps.meta.outputs.labels }}
+    #     oci: true
+    #     containerfiles: |
+    #       ./Containerfile
+    #     platforms: ${{ matrix.platform }}
+
     - name: Build Image
       id: build-image
-      uses: redhat-actions/buildah-build@v2
+      uses: raboo/podman-build-action@main
       with:
-        image: redir
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        oci: true
-        containerfiles: |
-          ./Containerfile
+        format: true
+        file: ./Containerfile
         platforms: ${{ matrix.platform }}
 
     # - name: list images
