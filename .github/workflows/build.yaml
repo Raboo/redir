@@ -83,7 +83,7 @@ jobs:
       with:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        format: true
+        format: oci
         file: ./Containerfile
         platforms: ${{ matrix.platform }}
 
