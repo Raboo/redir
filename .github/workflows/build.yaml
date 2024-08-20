@@ -108,8 +108,8 @@ jobs:
 
     # - run: skopeo copy containers-storage:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
     # - run: skopeo copy docker-daemon:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
-    - name: Copy image to tar
-      run: podman save -o /tmp/${{ env.PODMAN_ARCH }}-oci.tar ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }}
+    - name: Copy image to OCI-archive
+      run: podman save -o /tmp/${{ env.PODMAN_ARCH }}-oci.tar --format oci-archive ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }}
 
     - name: Upload digest
       uses: actions/upload-artifact@v4
@@ -145,7 +145,6 @@ jobs:
       env:
         OWNER: '${{ github.repository_owner }}'
 
-    - run: ls -la /tmp
     - run: podman manifest create ghcr.io/${{ env.OWNER_LC }}/redir:manifest
     - run: podman manifest add ghcr.io/${{ env.OWNER_LC }}/redir:manifest oci-archive:/tmp/arm64-oci.tar
     - run: podman manifest add ghcr.io/${{ env.OWNER_LC }}/redir:manifest oci-archive:/tmp/amd64-oci.tar
