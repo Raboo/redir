@@ -106,8 +106,10 @@ jobs:
     #     install -m 0755 skopeo-linux-${{ env.PODMAN_ARCH }} "$HOME/.local/bin/skopeo"
     #     echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-    - run: skopeo copy containers-storage:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
+    # - run: skopeo copy containers-storage:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
     # - run: skopeo copy docker-daemon:ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }} oci-archive:/tmp/${{ env.PODMAN_ARCH }}-oci.tar
+    - name: Copy image to tar
+      run: podman save -o /tmp/${{ env.PODMAN_ARCH }}-oci.tar ghcr.io/${{ env.OWNER_LC }}/redir:build-${{ env.PODMAN_ARCH }}
 
     - name: Upload digest
       uses: actions/upload-artifact@v4
