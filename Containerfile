@@ -1,4 +1,4 @@
-FROM alpine:3.20.1 AS build
+FROM alpine:3.20.2 AS build
 
 WORKDIR /build
 
@@ -13,6 +13,7 @@ RUN curl https://api.github.com/repos/troglobit/redir/releases/latest | jq -r '.
     strip redir && mv redir /build
 
 FROM scratch
+LABEL org.opencontainers.image.description "A 'FROM scratch' container with redir"
 
 COPY --from=build /build/redir /redir
 
