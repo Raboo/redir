@@ -145,6 +145,7 @@ jobs:
       env:
         OWNER: '${{ github.repository_owner }}'
 
+    - run: ls -la /tmp
     - run: podman manifest create ghcr.io/${{ env.OWNER_LC }}/redir:manifest
     - run: podman manifest add ghcr.io/${{ env.OWNER_LC }}/redir:manifest oci-archive:/tmp/arm64-oci.tar
     - run: podman manifest add ghcr.io/${{ env.OWNER_LC }}/redir:manifest oci-archive:/tmp/amd64-oci.tar
